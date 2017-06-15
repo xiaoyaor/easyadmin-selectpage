@@ -720,6 +720,7 @@
                 //增加输入框获得焦点后，显示数据列表
                 if ($(self.elem.result_area).is(':hidden')) {
                     e.stopPropagation();
+                    self.elem.navi.addClass("hide");
                     self.prop.first_show = true;
                     self.prop.page_move = false;
                     //self._checkValue(self);

@@ -540,7 +540,6 @@
                     id: input_id
                 }).addClass(this.css_class.input);
                 if (!option.source) {
-                    console.log('source');
                     var source = [];
                     $("option", elem.combo_input).each(function (i, j) {
                         source.push({id: i, name: $(this).text()});
@@ -758,7 +757,6 @@
                     $(li).remove();
                     self._inputResize(self);
                     $("li[pkey='" + key + "']", self.elem.results).removeClass(self.css_class.selected);
-                    console.log(self.elem.result);
                 });
                 self._inputResize(self);
             }

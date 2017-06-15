@@ -487,6 +487,11 @@
          * @param {Object} combo_input - 输入框源对象
          */
         _setElem: function (combo_input, option) {
+            //如果当前元素有默认值,且init_record为false时自动从元素取
+            var value = $(combo_input).val();
+            if (value && !option.init_record) {
+                this.option.init_record = $.isArray(value) ? value.join(',') : value;
+            }
             // 1. 生成、替换DOM对象
             var elem = {};//本体
             //将原始输入框中，用户设置的样式提取，并放到最外层的容器中,'class':''
@@ -607,7 +612,6 @@
             var self = this;
             //初始化外框宽度
             //$(self.elem.container).width($(self.elem.combo_input).outerWidth());
-
             if (this.option.init_record === false)
                 return;
             // 初始的KEY值放入隐藏域
@@ -635,11 +639,15 @@
                     url: self.option.source,
                     data: {
                         db_table: self.option.db_table,
+                        field: self.option.field,
+                        order_by: self.option.order_by,
                         pkey_name: self.option.primary_key,
-                        pkey_val: self.option.init_record
+                        pkey_value: self.option.init_record
                     },
                     success: function (json) {
-                        self._afterInit(self, json);
+                        if (typeof json.list !== 'undefined' && $.isArray(json.list)) {
+                            self._afterInit(self, json.list);
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         self._ajaxErrorNotify(self, errorThrown);
@@ -1189,17 +1197,22 @@
                 pageSize: self.option.per_page,
                 and_or: self.option.and_or,
                 order_by: self.option.order_by,
-                db_table: self.option.db_table
+                db_table: self.option.db_table,
+                field: self.option.field,
+                pkey_name: self.option.primary_key,
+                search_field: searchKey
             };
             _orgParams[searchKey] = q_word[0];
-            if (_paramsFunc && $.isFunction(_paramsFunc)) {
-                var result = _paramsFunc();
+            if (_paramsFunc) {
+                var result = $.isFunction(_paramsFunc) ? _paramsFunc() : _paramsFunc;
                 if (result && $.isPlainObject(result)) {
                     _params = $.extend({}, _orgParams, result);
-                } else
+                } else {
                     _params = _orgParams;
-            } else
+                }
+            } else {
                 _params = _orgParams;
+            }
             //增加自定义查询参数End
             self.prop.xhr = $.ajax({
                 dataType: 'json',

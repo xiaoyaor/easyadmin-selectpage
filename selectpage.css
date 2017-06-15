@@ -116,7 +116,7 @@ div.sp_button {
     padding: 0;
     position: absolute;
     z-index: 100;
-    width: 300px;
+    width: 250px;
 }
 
 .sp_results {
@@ -129,7 +129,7 @@ div.sp_button {
 .sp_results > li {
     margin: 0;
     overflow: hidden;
-    padding: 3px 5px;
+    padding: 5px 10px;
     position: relative;
     text-align: left;
     white-space: nowrap;
@@ -335,6 +335,6 @@ div.sp_result_area .pagination>li>a:hover {
 }
 
 div.sp_result_area .pagination>li.pageInfoBox>a {
-    width: 184px;
+    width: 134px;
     text-align: center;
 }

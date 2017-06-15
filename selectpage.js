@@ -505,7 +505,7 @@
             //结果集列表
             elem.result_area = $('<div>').addClass(this.css_class.re_area);
             //分页栏
-            elem.navi = $('<ul>').addClass(this.css_class.navi);
+            elem.navi = $('<ul>').addClass(this.css_class.navi).addClass("hide");
             //elem.navi_info   = $('<div>').addClass('info');
             //elem.navi_p      = $('<p>');
             elem.results = $('<ul>').addClass(this.css_class.results);
@@ -1525,6 +1525,7 @@
             };
 
             var pagebar = $(self.elem.navi);
+            pagebar.toggleClass("hide", cnt_whole < self.option.per_page)
             var last_page = Math.ceil(cnt_whole / self.option.per_page); //计算总页数
             if (last_page == 0)
                 page_num = 0;

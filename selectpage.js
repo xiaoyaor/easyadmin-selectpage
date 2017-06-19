@@ -154,6 +154,11 @@
                  */
                 format_item: false,
 
+                /**
+                 * 是否使用Formatter的text文本来填充文本框
+                 */
+                format_fill: false,
+
                 //只选择模式
                 select_only: true,
             }, option);
@@ -564,6 +569,7 @@
                     id: input_id
                 });
             }
+            $(elem.hidden).addClass("selectpage-input-hidden");
             // 2. DOM内容放置
             $(elem.container).append(elem.button).append(elem.result_area).append(elem.hidden);
             $(elem.button).append(elem.img);
@@ -741,6 +747,7 @@
                 //该句会去除当前高亮项目的显示，暂时屏蔽
                 //$(self.elem.results).children('li').removeClass(self.css_class.select);
             }).blur(function () {
+                $(self.elem.hidden).trigger("blur");
             });
             if (self.option.multiple) {
                 $(self.elem.element_box).click(function (e) {
@@ -1623,6 +1630,7 @@
                 //XSS対策
                 var list = $('<li>').html(itemText).attr({
                     pkey: arr_primary_key[i],
+                    pvalue: arr_candidate[i],
                     title: itemText
                 });
 
@@ -1899,13 +1907,15 @@
 
             var current = self._getCurrentLine(self);
             if (current) {
+                var pkey = $(current).attr('pkey');
+                var text = self.option.format_fill ? $(current).text() : $(current).attr("pvalue");
                 if (!self.option.multiple) {
-                    $(self.elem.combo_input).val($(current).text());
-                    self._setHiddenValue($(current).attr('pkey'));
+                    $(self.elem.combo_input).val(text);
+                    self._setHiddenValue(pkey);
                 } else {
                     //多选模式的项目选择处理
                     $(self.elem.combo_input).val('');
-                    var item = {text: $(current).text(), value: $(current).attr('pkey')};
+                    var item = {text: text, value: pkey};
                     if (!self._isAlreadySelected(self, item)) {
                         self._addNewTag(self, item);
                         self._tagValuesSet(self);
@@ -1921,7 +1931,6 @@
                 if (typeof self.option.callback === 'function') {
                     self.option.callback.call(self, $(current).data('dataObj'));
                 }
-
                 //触发指定事件
                 if (self.option.bind_to) {
                     $(self.elem.combo_input).trigger(self.option.bind_to, $(current).data('dataObj'));
@@ -1932,8 +1941,8 @@
             }
 
             //$(self.elem.combo_input).focus();
-            $(self.elem.combo_input).change();
-            $(self.elem.combo_input).blur();
+            $(self.elem.combo_input).trigger("change");
+            $(self.elem.combo_input).trigger("blur");
             self._setCssFocusedInput(self);
             self._inputResize(self);
         },

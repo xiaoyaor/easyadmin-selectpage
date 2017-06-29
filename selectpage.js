@@ -585,6 +585,9 @@
                 if ($(elem.combo_input).attr('placeholder'))
                     $(elem.combo_input).attr('placeholder_bak', $(elem.combo_input).attr('placeholder'));
             }
+            if ($(elem.container).parent().hasClass("input-group")) {
+                $(elem.container).height($(elem.container).parent().height());
+            }
 
             this.elem = elem;
         },

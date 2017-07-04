@@ -585,6 +585,9 @@
                 if ($(elem.combo_input).attr('placeholder'))
                     $(elem.combo_input).attr('placeholder_bak', $(elem.combo_input).attr('placeholder'));
             }
+            if ($(elem.container).parent().hasClass("input-group")) {
+                $(elem.container).height($(elem.container).parent().height());
+            }
 
             this.elem = elem;
         },
@@ -640,16 +643,30 @@
                     data = null;
                 self._afterInit(self, data);
             } else {
+                var _paramsFunc = self.option.params;
+                var _params = {};
+                //原始参数
+                var _orgParams = {
+                    db_table: self.option.db_table,
+                    field: self.option.field,
+                    order_by: self.option.order_by,
+                    pkey_name: self.option.primary_key,
+                    pkey_value: self.option.init_record
+                };
+                if (_paramsFunc) {
+                    var result = $.isFunction(_paramsFunc) ? _paramsFunc() : _paramsFunc;
+                    if (result && $.isPlainObject(result)) {
+                        _params = $.extend({}, _orgParams, result);
+                    } else {
+                        _params = _orgParams;
+                    }
+                } else {
+                    _params = _orgParams;
+                }
                 $.ajax({
                     dataType: 'json',
                     url: self.option.source,
-                    data: {
-                        db_table: self.option.db_table,
-                        field: self.option.field,
-                        order_by: self.option.order_by,
-                        pkey_name: self.option.primary_key,
-                        pkey_value: self.option.init_record
-                    },
+                    data: _params,
                     success: function (json) {
                         if (typeof json.list !== 'undefined' && $.isArray(json.list)) {
                             self._afterInit(self, json.list);

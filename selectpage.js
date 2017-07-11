@@ -38,9 +38,8 @@
      * 
      * option参数集内容
      * @param {boolean} [option.instance] - 是否返回插件内部对象（true：返回内部对象，false：返回输入框自身）
-     * @param {string} [option.lang='cn'] - 插件显示语言 ('ja', 'en', 'es', 'pt-br'等)
+     * @param {string} [option.lang='cn'] - 插件显示语言 ('en','cn'等)
      * @param {boolean} [option.multiple] - 是否为多选模式（多选模式下，选中的项目将会以Tag标签的形式展现）
-     * @param {string} [option.db_table='tbl'] - 使用ajax方式获取数据时，使用该参数设置对应的数据表名
      * @param {string} [option.field='name'] - 结果集中用于显示的属性名
      * @param {string} [option.search_field=option.field] - 使用ajax作为数据源情况下的查询字段指定。 (e.g.: 'id, name, job')
      * @param {string|Array} [option.order_by=option.search_field] - 排序字段指定，若不指定则自动使用查询字段 (e.g.: 'name DESC' or ['name ASC', 'age DESC'])
@@ -50,7 +49,6 @@
      * @param {string} [option.and_or='AND'] - 查询方式 ('AND' or 'OR')
      * @param {boolean} [option.select_only=false] - 仅选择，不能输入查询关键字
      * @param {string} [option.primary_key='id'] - 值字段，通常该字段的内容会自动保存在隐藏域中
-     * @param {string} [option.button_img='dist/btn.png'] - 按钮样式（现已固定使用向下的三角尖，不再接受定制）
      */
     $.fn.selectPage = function (option) {
         var arr = [];
@@ -117,12 +115,10 @@
                 lang: 'cn',
                 multiple: false,
                 init_record: false,
-                db_table: 'tbl',
                 field: 'name',
                 and_or: 'AND',
                 per_page: 10,
                 primary_key: 'id',
-                button_img: 'dist/btn.png',
                 bind_to: false,
                 /**
                  * 是否在输入框获得焦点时，展开下拉窗口
@@ -153,13 +149,13 @@
                  * 返回：string
                  */
                 format_item: false,
-
                 /**
                  * 是否使用Formatter的text文本来填充文本框
                  */
                 format_fill: false,
-
-                //只选择模式
+                /**
+                 * 只选择模式
+                 */
                 select_only: true,
             }, option);
             //特殊字段处理
@@ -256,33 +252,6 @@
         _setLanguage: function () {
             var message;
             switch (this.option.lang) {
-                // German
-                case 'de':
-                    message = {
-                        add_btn: 'Hinzufügen-Button',
-                        add_title: 'Box hinzufügen',
-                        del_btn: 'Löschen-Button',
-                        del_title: 'Box löschen',
-                        next: 'Nächsten',
-                        next_title: 'Nächsten' + this.option.per_page + ' (Pfeil-rechts)',
-                        prev: 'Vorherigen',
-                        prev_title: 'Vorherigen' + this.option.per_page + ' (Pfeil-links)',
-                        first_title: 'Ersten (Umschalt + Pfeil-links)',
-                        last_title: 'Letzten (Umschalt + Pfeil-rechts)',
-                        get_all_btn: 'alle (Pfeil-runter)',
-                        get_all_alt: '(Button)',
-                        close_btn: 'Schließen (Tab)',
-                        close_alt: '(Button)',
-                        loading: 'lade...',
-                        loading_alt: '(lade)',
-                        page_info: 'num_page_top - num_page_end von cnt_whole',
-                        select_ng: 'Achtung: Bitte wählen Sie aus der Liste aus.',
-                        select_ok: 'OK : Richtig ausgewählt.',
-                        not_found: 'nicht gefunden',
-                        ajax_error: 'Bei der Verbindung zum Server ist ein Fehler aufgetreten. (ajax-combobox)'
-                    };
-                    break;
-
                     // English
                 case 'en':
                     message = {
@@ -334,87 +303,6 @@
                         select_ok: 'OK : 已经选择.',
                         not_found: '无查询结果',
                         ajax_error: '连接到服务器时发生错误！'
-                    };
-                    break;
-
-                    // Spanish
-                case 'es':
-                    message = {
-                        add_btn: 'Agregar boton',
-                        add_title: 'Agregar una opcion',
-                        del_btn: 'Borrar boton',
-                        del_title: 'Borrar una opcion',
-                        next: 'Siguiente',
-                        next_title: 'Proximas ' + this.option.per_page + ' (tecla derecha)',
-                        prev: 'Anterior',
-                        prev_title: 'Anteriores ' + this.option.per_page + ' (tecla izquierda)',
-                        first_title: 'Primera (Shift + Left)',
-                        last_title: 'Ultima (Shift + Right)',
-                        get_all_btn: 'Ver todos (tecla abajo)',
-                        get_all_alt: '(boton)',
-                        close_btn: 'Cerrar (tecla TAB)',
-                        close_alt: '(boton)',
-                        loading: 'Cargando...',
-                        loading_alt: '(Cargando)',
-                        page_info: 'num_page_top - num_page_end de cnt_whole',
-                        select_ng: 'Atencion: Elija una opcion de la lista.',
-                        select_ok: 'OK: Correctamente seleccionado.',
-                        not_found: 'no encuentre',
-                        ajax_error: 'Un error ocurrió mientras conectando al servidor. (ajax-combobox)'
-                    };
-                    break;
-
-                    // Brazilian Portuguese
-                case 'pt-br':
-                    message = {
-                        add_btn: 'Adicionar botão',
-                        add_title: 'Adicionar uma caixa',
-                        del_btn: 'Apagar botão',
-                        del_title: 'Apagar uma caixa',
-                        next: 'Próxima',
-                        next_title: 'Próxima ' + this.option.per_page + ' (tecla direita)',
-                        prev: 'Anterior',
-                        prev_title: 'Anterior ' + this.option.per_page + ' (tecla esquerda)',
-                        first_title: 'Primeira (Shift + Left)',
-                        last_title: 'Última (Shift + Right)',
-                        get_all_btn: 'Ver todos (Seta para baixo)',
-                        get_all_alt: '(botão)',
-                        close_btn: 'Fechar (tecla TAB)',
-                        close_alt: '(botão)',
-                        loading: 'Carregando...',
-                        loading_alt: '(Carregando)',
-                        page_info: 'num_page_top - num_page_end de cnt_whole',
-                        select_ng: 'Atenção: Escolha uma opção da lista.',
-                        select_ok: 'OK: Selecionado Corretamente.',
-                        not_found: 'não encontrado',
-                        ajax_error: 'Um erro aconteceu enquanto conectando a servidor. (ajax-combobox)'
-                    };
-                    break;
-
-                    // Japanese
-                case 'ja':
-                    message = {
-                        add_btn: '追加ボタン',
-                        add_title: '入力ボックスを追加します',
-                        del_btn: '削除ボタン',
-                        del_title: '入力ボックスを削除します',
-                        next: '次へ',
-                        next_title: '次の' + this.option.per_page + '件 (右キー)',
-                        prev: '前へ',
-                        prev_title: '前の' + this.option.per_page + '件 (左キー)',
-                        first_title: '最初のページへ (Shift + 左キー)',
-                        last_title: '最後のページへ (Shift + 右キー)',
-                        get_all_btn: '全件取得 (下キー)',
-                        get_all_alt: '画像:ボタン',
-                        close_btn: '閉じる (Tabキー)',
-                        close_alt: '画像:ボタン',
-                        loading: '読み込み中...',
-                        loading_alt: '画像:読み込み中...',
-                        page_info: 'num_page_top - num_page_end 件 (全 cnt_whole 件)',
-                        select_ng: '注意 : リストの中から選択してください',
-                        select_ok: 'OK : 正しく選択されました。',
-                        not_found: '(0 件)',
-                        ajax_error: 'サーバとの通信でエラーが発生しました。(ajax-combobox)'
                     };
                     break;
             }
@@ -505,7 +393,6 @@
             elem.container = $(elem.combo_input).parent().addClass(this.css_class.container);
 
             elem.button = $('<div>').addClass(this.css_class.button);
-            //elem.img    = $('<img>').attr('src', this.option.button_img);
             //更换为bootstrap风格的向下三角箭头
             elem.img = $('<span class="bs-caret"><span class="caret"></span></span>');
 
@@ -647,7 +534,6 @@
                 var _params = {};
                 //原始参数
                 var _orgParams = {
-                    db_table: self.option.db_table,
                     field: self.option.field,
                     order_by: self.option.order_by,
                     pkey_name: self.option.primary_key,
@@ -667,10 +553,15 @@
                     dataType: 'json',
                     url: self.option.source,
                     data: _params,
-                    success: function (json) {
-                        if (typeof json.list !== 'undefined' && $.isArray(json.list)) {
-                            self._afterInit(self, json.list);
+                    success: function (returnData) {
+                        if (typeof returnData.rows === 'undefined' || !$.isArray(returnData.rows)) {
+                            self.prop.xhr = null;
+                            self._notFoundSearch(self);
+                            return;
+                        } else {
+                            returnData.list = returnData.rows;
                         }
+                        self._afterInit(self, returnData.list);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         self._ajaxErrorNotify(self, errorThrown);
@@ -1217,11 +1108,10 @@
             var searchKey = self.option.search_field;
             var _orgParams = {
                 q_word: q_word,
-                pageNumber: which_page_num,
-                pageSize: self.option.per_page,
+                page: which_page_num,
+                per_page: self.option.per_page,
                 and_or: self.option.and_or,
                 order_by: self.option.order_by,
-                db_table: self.option.db_table,
                 field: self.option.field,
                 pkey_name: self.option.primary_key,
                 search_field: searchKey
@@ -1244,9 +1134,13 @@
                 data: _params,
                 success: function (returnData) {
                     if (typeof returnData.list === 'undefined' || !$.isArray(returnData.list)) {
-                        self.prop.xhr = null;
-                        self._notFoundSearch(self);
-                        return;
+                        if (typeof returnData.rows === 'undefined' || !$.isArray(returnData.rows)) {
+                            self.prop.xhr = null;
+                            self._notFoundSearch(self);
+                            return;
+                        } else {
+                            returnData.list = returnData.rows;
+                        }
                     }
                     if (typeof returnData.total === 'undefined') {
                         returnData.total = returnData.list.length;

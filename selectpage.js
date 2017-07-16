@@ -554,12 +554,14 @@
                     url: self.option.source,
                     data: _params,
                     success: function (returnData) {
-                        if (typeof returnData.rows === 'undefined' || !$.isArray(returnData.rows)) {
-                            self.prop.xhr = null;
-                            self._notFoundSearch(self);
-                            return;
-                        } else {
-                            returnData.list = returnData.rows;
+                        if (typeof returnData.list === 'undefined' || !$.isArray(returnData.list)) {
+                            if (typeof returnData.rows === 'undefined' || !$.isArray(returnData.rows)) {
+                                self.prop.xhr = null;
+                                self._notFoundSearch(self);
+                                return;
+                            } else {
+                                returnData.list = returnData.rows;
+                            }
                         }
                         self._afterInit(self, returnData.list);
                     },

@@ -252,7 +252,7 @@
         _setLanguage: function () {
             var message;
             switch (this.option.lang) {
-                    // English
+                // English
                 case 'en':
                     message = {
                         add_btn: 'Add button',
@@ -563,6 +563,9 @@
                                 returnData.list = returnData.rows;
                             }
                         }
+                        if (typeof returnData.total === 'undefined') {
+                            returnData.total = returnData.list.length;
+                        }
                         self._afterInit(self, returnData.list);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -583,7 +586,6 @@
                 return;
             if (!$.isArray(data))
                 data = [data];
-
             if (self.option.multiple) {//多选模式初始化
                 $(self.elem.combo_input).val('');
                 $.each(data, function (i, row) {

@@ -590,8 +590,7 @@
                 $(self.elem.combo_input).val('');
                 $.each(data, function (i, row) {
                     var item = {text: row[self.option.field], value: row[self.option.primary_key]};
-                    if (!self._isAlreadySelected(self, item))
-                        self._addNewTag(self, item);
+                    self._addNewTag(self, item);
                 });
                 self._tagValuesSet(self);
                 self._inputResize(self);

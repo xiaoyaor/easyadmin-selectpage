@@ -97,7 +97,26 @@ div.sp_button {
     background: #dee;
     background-image: linear-gradient(to bottom, #ffffff, #bbbbcc);
 }
-
+div.sp_clear_btn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    display: block;
+    width: auto;
+    height: 100%;
+    cursor: pointer;
+    font-size: 20px;
+    color: #666666;
+    margin: 0px;
+    padding: 3px 0px 0px 0px;
+    box-sizing: border-box;
+    line-height: 1;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+}
+div.sp_clear_btn:hover {
+    color: black;
+    font-weight: bold;
+}
 /**
  * Results
  */
@@ -118,7 +137,16 @@ div.sp_button {
     z-index: 100;
     width: 250px;
 }
-
+div.sp_result_area.shadowDown{
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 3px 12px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px 3px 12px rgba(0,0,0,0.2);
+}
+div.sp_result_area.shadowUp{
+    box-shadow: 0px -1px 12px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px -1px 12px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px -1px 12px rgba(0,0,0,0.2);
+}
 .sp_results {
     background-color: white;
     list-style: none;
@@ -144,7 +172,14 @@ div.sp_button {
     /* background-color: #EEEEEE; */
     background-color: #EBF2FC;
 }
-
+.sp_results > li.sp_message_box {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: content-box;
+    font-size: 14px;
+    cursor: default;
+}
 ul.sp_results > li.sp_over {
     background-color: #53A4EA !important;
     color: #fff !important;
@@ -152,11 +187,36 @@ ul.sp_results > li.sp_over {
 }
 
 ul.sp_results > li.sp_selected {
-    background-color: #def;
-    font-weight: bold;
-    color: blue;
+    color: #cccccc;
+    cursor: default;
 }
 
+.sp_control_box{
+    padding: 0px;
+    height: 27px;
+    background-color: white;
+    border-bottom: 1px solid #e6e7e7;
+}
+.sp_control_box button{
+    height: 26px;
+    line-height: 20px;
+    width: 33.3%;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    font-size: 13px !important;
+    padding: 1px 10px;
+    border: 0px;
+    background-color: white;
+    color: #666666;
+}
+.sp_control_box button:last-child{
+    width: 33.4%;
+}
+.sp_control_box button:hover{
+    background-color: #F0F0F0;
+    color: black;
+}
 /**
  * 多选模式相关样式
  */
@@ -187,6 +247,10 @@ input.sp_combo_input{
 }
 input.sp_combo_input:focus {
     box-shadow: none;
+}
+input.sp_combo_input[readonly],
+input.sp_combo_input[disabled]{
+    background-color: white;
 }
 ul.sp_element_box{
     margin: 0px;
@@ -230,6 +294,11 @@ ul.sp_element_box li.input_box {
     height: 26px;
     min-height: 26px;
 }
+ul.sp_element_box li.input_box input {
+    height: 26px !important;
+    line-height: 26px !important;
+    min-height: 26px !important;
+}
 ul.sp_element_box li.selected_tag span.tag_close {
     cursor: pointer;
     margin-left: 5px;
@@ -252,6 +321,50 @@ ul.sp_element_box li.selected_tag span.tag_close {
 
 .sp_hide {
     display: none;
+}
+
+/**
+ * Navi
+ */
+.sp_navi {
+    background: #eee;
+    border-bottom: 1px solid #79b;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    margin: 0;
+    padding: 4px;
+    text-align: right;
+}
+
+.sp_navi > p > a:link,
+.sp_navi > p > a:visited,
+.sp_navi > p > a:hover,
+.sp_navi > p > a:active {
+    color: blue;
+    font-weight: normal;
+    margin: 0 4px;
+    text-decoration: underline;
+}
+
+.sp_navi > p {
+    color: black;
+    font-size: 15px;
+    margin: 0;
+    padding-top: 4px;
+    text-align: center;
+}
+
+.sp_navi > p > a >.current {
+    color: #00c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sp_navi > p >.page_end {
+    color: gray;
+    font-weight: normal;
+    margin: 0 4px;
 }
 
 .navi_page,

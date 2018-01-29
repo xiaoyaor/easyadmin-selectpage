@@ -771,6 +771,10 @@
             if ($(elem.combo_input).attr('placeholder'))
                 $(elem.combo_input).attr('placeholder_bak', $(elem.combo_input).attr('placeholder'));
         }
+        
+        if ($(elem.container).parent().hasClass("input-group")) {		
+            $(elem.container).height($(elem.container).parent().height());		
+        }
 
         this.elem = elem;
     };
@@ -854,7 +858,7 @@
                         } else {
                             data = returnData;
                         }
-                        self.afterInit(self, data.list);
+                        self.afterInit(self, typeof data.rows !== 'undefined' ? data.rows : (typeof data.list !== 'undefined' ? data.list : []));
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         self.ajaxErrorNotify(self, errorThrown);
@@ -1488,7 +1492,7 @@
 
                 //数据结构处理
                 var json = {};
-                json.originalResult = data.list;
+                json.originalResult = typeof data.rows !== 'undefined' ? data.rows : (typeof data.list !== 'undefined' ? data.list : []);
                 json.cnt_whole = typeof data.total !== 'undefined' ? data.total : (typeof data.totalRow !== 'undefined' ? data.totalRow : data.list.length);
 
                 json.candidate = [];

@@ -1250,12 +1250,13 @@
             searchField: self.option.searchField
         };
         _orgParams[searchKey] = q_word[0];
-        if (_paramsFunc && $.isFunction(_paramsFunc)) {
-            var result = _paramsFunc.call(self);
+        if (_paramsFunc) {
+            var result = $.isFunction(_paramsFunc) ? _paramsFunc() : _paramsFunc;
             if (result && $.isPlainObject(result)) {
                 _params = $.extend({}, _orgParams, result);
-            } else
+            } else {
                 _params = _orgParams;
+            }
         } else
             _params = _orgParams;
         self.prop.xhr = $.ajax({
@@ -1278,7 +1279,10 @@
                     self.showMessage(self, self.message.ajax_error);
                     return;
                 }
-
+                if(self.elem.navi) {
+                    $(self.elem.navi).toggleClass("hide", json.cnt_whole <= json.originalResult.length);
+                }
+                
                 json.candidate = [];
                 json.keyField = [];
                 if (typeof json.originalResult != 'object') {

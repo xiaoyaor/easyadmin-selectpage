@@ -1,14 +1,8 @@
 # SelectPage
-A jQuery plugin include autocomplete,pagination,tags,keybord navigation functions
+FastAdmin动态下载列表模块
 
-plugin preview  
-![SelectPage](https://terryz.github.io/image/SelectPage.png)
+## 使用方法
+http://doc.fastadmin.net/docs/component.html
 
-
-## Key Features
-
-<ul>
-	<li>jQuery plugin</li>
-	<li>A item select plugin for bootstrap2(unsupport bootstrap3)</li>
-	<li>brower supper IE8+,chrome,firefox</li>
-</ul>
+## 特别感谢
+https://github.com/TerryZ/SelectPage

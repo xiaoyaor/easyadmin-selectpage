@@ -573,7 +573,7 @@
             id: hidden_id
         }).val('');
         elem.combo_input.attr({
-            name: input_name + namePrefix,
+            name: typeof input.data('name') !== 'undefined' ? input.data('name') : input_name + namePrefix,
             id: input_id + namePrefix
         });
 
